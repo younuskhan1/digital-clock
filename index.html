@@ -11,7 +11,7 @@
     <div class="datetime">
         <div class="date">
             <span id="dayname">Day</span>,
-            <span id="month">Month</span>,
+            <span id="month">Month</span>
             <span id="daynum">00</span>,
             <span id="year">Year</span>
         </div>
@@ -34,13 +34,33 @@
           sec = now.getSeconds(),
           pe = "AM";
 
-          if(hou == 0){
+        // the mid night that means night 12 am. Do you know that mid night 12 am means 0 hour as
+        // international time. At mid night when the clock passes 23pm to 24am then hour becomes 
+        // instantly 0 am as per international time zone. the immediate below condition is made 
+        // based on this situation that when the hour will be 0, then that 0 will be 12 am instantly.  
+
+          if(hou === 0){
             hou = 12;
           }
+ 
+
           if(hou > 12){
             hou = hou-12;
             pe = "PM";
           }
+
+
+        // the Number.prototype.pad = function(digits){} is used to add 0 to left side of 
+        // single digit of this clock such as 3:7:1 pm time will be shown as 03:07:01 pm.
+        // dnum.pad(2), hou.pad(2), min.pad(2), sec.pad(2) here we called this        
+        // Number.prototype.pad = function(digits){} with argument (2); that means parameter 
+        // digits's value will be 2; We will collect the clock's real digit with this this
+        // keyword and count it's number of digits with making it string and store the number 
+        // of digits at string form at n variable after that we will compare between n.length and digits. 
+        // if n.length is less than digits' length then additional 0 will be added to the left 
+        // side of clock's digits. here n variable's value must be returned. clock's total number 
+        // of digits of hou, min, sec, dnum will be according to your sending parameter's value.
+
 
           Number.prototype.pad = function(digits){
             for(var n = this.toString();
@@ -60,7 +80,7 @@
         }
         function initClock(){
             updateClock();
-            window.setInterval("updateClock()", 1)
+            window.setInterval("updateClock()", 1);
         }
     </script>
 </body>
